@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 export class MovieWishlistComponent implements OnInit, OnDestroy {
 
   movies: Movie[];
-  private defaultImg: string;
+  private readonly defaultImg: string;
 
   private _onDestroy$ = new Subject<void>();
 
