@@ -1,0 +1,32 @@
+<div class="outer-flex-container">
+  <div class="inner-flex-container">
+    <p>
+      movie works!
+    </p>
+
+    <form style="width: 100%;">
+      <mat-form-field class="full-width-input">
+        <input matInput #searchString placeholder="Tap title to search" aria-label="Tap title to search" [matAutocomplete]="auto" [formControl]="movieCtrl" (keyup)="search(searchString.value)">
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let m of movies$ | async" [value]="m.Title">
+            <img [src]="m.Poster" height="25">
+            <span>{{m.Title}}</span> |
+            <span> {{m.Type.toString()}}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="inner-flex-container">
+    <!--<div>Total: {{totalResults}}</div>-->
+
+    <!--<div *ngFor="let m of result | async">-->
+    <!--{{m.Title}}-->
+    <!--</div>-->
+    qwqwqw
+  </div>
+
+
+</div>

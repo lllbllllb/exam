@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,6 +15,13 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@exam-app/*": [ "app/*" ],
+      "@exam-env/*": [ "environments/*" ],
+      "@exam-core/*": [ "app/core/*"],
+      "@exam-domain/*": [ "app/domain/*" ],
+      "@exam-shared/*": [ "app/shared/*" ]
+    }
   }
 }

@@ -1,14 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppComponent } from '@exam-app/app.component';
+import { CoreModule } from '@exam-core/core.module';
+import { SharedModule } from '@exam-shared/shared.module';
+import { MovieModule } from '@exam-app/movie/movie.module';
+import { AppRoutingModule } from '@exam-app/app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppComponent } from './app.component';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    CoreModule,
+    SharedModule,
+    AppRoutingModule,
+    MovieModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
