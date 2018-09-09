@@ -1,0 +1,69 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Search settings</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field style="width: 100%">
+        <input matInput required #apikey  type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB" [formControl]="apikeyCtrl" (keyup)="saveApikey()">
+
+        <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showApikey = !showApikey">
+          <mat-icon *ngIf="!showApikey">visibility</mat-icon>
+          <mat-icon *ngIf="showApikey">visibility_off</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="flex-wrapper-row">
+        <div>
+          <mat-form-field class="half-input">
+            <mat-select placeholder="Type" [(value)]="type" (selectionChange)="search()">
+              <mat-option></mat-option>
+              <span *ngFor="let t of types">
+                <mat-option value="{{t}}">{{t}}</mat-option>
+              </span>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="half-input">
+            <mat-select placeholder="Year" [(value)]="year" (selectionChange)="search()">
+              <mat-option></mat-option>
+              <span *ngFor="let y of years">
+                <mat-option value="{{y}}">{{y}}</mat-option>
+              </span>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-form-field style="width: 100%">
+        <input matInput #searchString required
+               placeholder="Enter the title to search"
+               aria-label="Tap title to search"
+               [matAutocomplete]="auto"
+               [formControl]="movieCtrl"
+               (keyup)="search()">
+
+        <button mat-button color="primary" *ngIf="searchString.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchString.value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayMovie.bind(this)">
+          <mat-option *ngFor="let m of movies$ | async" [value]="m" (onSelectionChange)="selectMovie()">
+
+            <img [src]="m.Poster" (error)="imgErrorHandler($event)" height="25" class="list-img" (click)="gotoDetails(m.imdbID)" alt="{{m.Title}}">
+            <span class="content" title="{{m.Title}} ({{m.Type.toString()}}, {{m.Year}})"> {{m.Title}} </span>
+            <small>({{m.Type.toString()}}, {{m.Year}})</small>
+
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button class="search-button" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid" (click)="acceptMovie()">ADD TO WISHLIST</button>
+  </mat-card-actions>
+</mat-card>

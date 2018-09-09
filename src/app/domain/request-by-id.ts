@@ -15,7 +15,7 @@ export interface RequestById {
   type?: MovieType;
 
   /** Year of release. */
-  y?: string;
+  y?: number;
 
   /**
    *  Return {@options short, full} plot.

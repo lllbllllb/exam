@@ -8,6 +8,10 @@ const appRoutes: Routes = [
     loadChildren: './movie/movie.module#MovieModule'
   },
   {
+    path: 'movie/:imdbID',
+    loadChildren: './movie-details/movie-details.module#MovieDetailsModule'
+  },
+  {
     path: '**',
     redirectTo: 'movie',
     pathMatch: 'full'

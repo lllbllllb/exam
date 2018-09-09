@@ -3,14 +3,12 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
   ],
   declarations: []
 })

@@ -27,7 +27,8 @@ export class OmdbapiService {
       }
     }
 
-    params = params.set('apikey', '4e968e9c');
+    // params = params.set('apikey', '4e968e9c');
+    params = params.set('apikey', sessionStorage.getItem('apikey'));
 
     return params;
   }
@@ -52,16 +53,16 @@ export class OmdbapiService {
     return throwError(error.status);
   }
 
-  findById(req: RequestById): Observable<Movie> {
+  findById$(req: RequestById): Observable<Movie> {
     return this._http.get<Movie>(this.serviceUri, {params: OmdbapiService.requestParamsConstrictor(req)})
       .pipe(
-        tap(_ => console.log(_)),
+        tap(),
         // retry(3),
         catchError(OmdbapiService.handleError)
       );
   }
 
-  findBySearch(req: RequestBySearch): Observable<any> {
+  findBySearch$(req: RequestBySearch): Observable<any> {
     return this._http.get<any>(this.serviceUri, {params: OmdbapiService.requestParamsConstrictor(req)})
       .pipe(
         // retry(3),

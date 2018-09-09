@@ -1,0 +1,14 @@
+<mat-card *ngIf="selectedMovie">
+  <mat-card-header>
+    <mat-card-title>{{selectedMovie.Title}}</mat-card-title>
+    <mat-card-subtitle>{{selectedMovie.Type}}, {{selectedMovie.Year}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <img mat-card-image src="{{selectedMovie.Poster}}" (error)="imgErrorHandler($event)" alt="Poster for {{selectedMovie.Title}}">
+
+  <mat-card-content class="max-width">
+    <div>
+      <div></div>
+    </div>
+  </mat-card-content>
+</mat-card>

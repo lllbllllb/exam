@@ -2,6 +2,9 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,400,900');
 
+$boundary-device-width: 320px;
+$default-space: 10px;
+
 body, html {
   padding: 0;
   margin: 0;
@@ -9,6 +12,43 @@ body, html {
   height: 100%;
   font-family: 'Roboto', "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+mat-card {
+  width: $boundary-device-width;
+  border-radius: 10px;
+  box-shadow: none;
+  padding: $default-space;
+}
+
+mat-card-subtitle {
+  font-weight: bolder;
+}
+
+mat-card-actions {
+  //width: $boundary-device-width;
+  margin: 0;
+  padding: 0 0 -20px 0;
+}
+
+button.mat-button {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-card-image {
+  //width: $boundary-device-width+2*$default-space;
+  //margin: 0 -$default-space 0 -$default-space;
+  width: calc(100% + 20px);
+  margin: 0 -10px 0 -10px;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/scrolling-film-strip-3-transparent-alpha-channel-loop_-1_ih8dxs__F0000.png');
+
 }
 
 .outer-flex-container {
@@ -19,22 +59,42 @@ body, html {
 }
 
 .inner-flex-container {
-  width: 360px;
   display: flex;
+  //width: $boundary-device-width;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 }
 
-.full-width-input {
+.flex-wrapper-row {
   width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.full-width {
+  width: 100%;
+}
+
+.max-width {
+  width: $boundary-device-width;
+}
+
+.tile {
+  margin: $default-space $default-space 0 $default-space;
 }
 
 .fill-remaining-space {
   flex: 1 1 auto;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }

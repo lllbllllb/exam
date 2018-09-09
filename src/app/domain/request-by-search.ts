@@ -9,7 +9,7 @@ export interface RequestBySearch {
   type?: MovieType;
 
   /** Year of release. */
-  y?: string;
+  y?: number;
 
   /**
    * The data type to return. {@options json, xml}

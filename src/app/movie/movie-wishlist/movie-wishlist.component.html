@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>A wish list</mat-card-title>
+    <mat-card-subtitle>{{movies && movies.length !== 0 ? (movies.length + (movies.length === 1 ? ' movie ' : ' movies$ ') + 'saved') : 'No savedmovies yet'}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-nav-list *ngIf="movies">
+      <mat-list-item *ngFor="let m of movies">
+        <img matListAvatar [src]="m.Poster" (error)="imgErrorHandler($event)" alt="{{m.Title}}">
+        <a matLine routerLink="{{m.imdbID}}" title="{{m.Title}} ({{m.Type.toString()}}, {{m.Year}})">{{m.Title}}</a>
+        <p mat-line> {{m.Type.toString()}}, {{m.Year}} </p>
+
+        <button mat-button color="warn" matSuffix mat-icon-button aria-label="Delete" title="Delete movie" (click)="deleteMovie(m)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+
+  </mat-card-content>
+</mat-card>

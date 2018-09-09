@@ -1,5 +1,5 @@
 export enum MovieType {
-  movie,
-  series,
-  episode
+  movie = 'Movie',
+  series = 'Series',
+  episode = 'Episode'
 }

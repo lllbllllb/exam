@@ -1,0 +1,32 @@
+@import "../../../styles";
+
+.half-input {
+  width: $boundary-device-width/2-$default-space;
+}
+
+.search-button {
+  width: 100%;
+}
+
+.mat-card>.mat-card-actions:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.list-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.content {
+  width: 50%;
+  text-overflow: ellipsis;
+}
+
+.content-col {
+  flex-basis: 80%;
+}
+.button-col {
+  flex-basis: 20%;
+}
+
