@@ -13,7 +13,7 @@ export class MoviePreviewComponent implements OnInit, OnDestroy, OnChanges {
   defaultImg: string;
 
   constructor() {
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/max-steel-reboot/images/7/72/No_Image_Available.gif/revision/latest?cb=20130902173013';
+    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
   }
 
   ngOnInit() {

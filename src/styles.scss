@@ -12,7 +12,7 @@ body, html {
   height: 100%;
   font-family: 'Roboto', "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/scrolling-film-strip-3-transparent-alpha-channel-loop_-1_ih8dxs__F0000.png');
+  background: url('assets/textures/darkness.png');
 
 }
 
@@ -37,6 +37,10 @@ button.mat-button {
   min-width: 0;
   padding: 0;
   margin: 0;
+}
+
+img:hover {
+  cursor: zoom-in;
 }
 
 .mat-card-image {
@@ -82,7 +86,6 @@ button.mat-button {
   justify-content: space-between;
 }
 
-
 .full-width {
   width: 100%;
 }
@@ -103,3 +106,21 @@ button.mat-button {
   flex: 1 1 auto;
 }
 
+// styling for dialogs should be global scoped to be applied (not defined in the component styles)
+// https://stackoverflow.com/a/48689004/6351976
+.image-dialog {
+  mat-dialog-container {
+    padding: 0;
+    margin: 0;
+    border-radius: $default-space $default-space 2px 2px;
+  }
+  .mat-dialog-content {
+    padding: 0;
+    margin: 0;
+  }
+  .mat-dialog-title {
+    text-align: center;
+    font: 600 14px/18px Roboto,"Helvetica Neue",sans-serif !important;
+    margin: 4px;
+  }
+}

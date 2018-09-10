@@ -6,12 +6,18 @@
   <mat-card-content>
     <form>
       <mat-form-field style="width: 100%">
-        <input matInput required #apikey  type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB" [formControl]="apikeyCtrl" (keyup)="saveApikey()">
+        <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB" [formControl]="apikeyCtrl"
+               (keyup)="saveApikey()">
 
         <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showApikey = !showApikey">
           <mat-icon *ngIf="!showApikey">visibility</mat-icon>
           <mat-icon *ngIf="showApikey">visibility_off</mat-icon>
         </button>
+
+        <mat-hint>
+          You can get a free API-key
+          <a href="https://www.omdbapi.com/apikey.aspx" target="_blank"> here</a>
+        </mat-hint>
       </mat-form-field>
 
       <div class="flex-wrapper-row">
@@ -50,10 +56,11 @@
           <mat-icon>close</mat-icon>
         </button>
 
-        <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayMovie.bind(this)">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayMovie.bind(this)">
           <mat-option *ngFor="let m of movies$ | async" [value]="m" (onSelectionChange)="selectMovie()">
 
-            <img [src]="m.Poster" (error)="imgErrorHandler($event)" height="25" class="list-img" (click)="gotoDetails(m.imdbID)" alt="{{m.Title}}">
+            <img [src]="m.Poster" (error)="imgErrorHandler($event)" height="25" class="list-img" (click)="zoomImg(m.Title, m.Poster)"
+                 alt="{{m.Title}}">
             <span class="content" title="{{m.Title}} ({{m.Type.toString()}}, {{m.Year}})"> {{m.Title}} </span>
             <small>({{m.Type.toString()}}, {{m.Year}})</small>
 
@@ -64,6 +71,8 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button class="search-button" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid" (click)="acceptMovie()">ADD TO WISHLIST</button>
+    <button class="search-button" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid" (click)="acceptMovie()">
+      <mat-icon title="Add to wishlist">playlist_add</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

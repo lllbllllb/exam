@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { Movie } from '@exam-app/domain';
+import { MatDialog } from '@angular/material';
+import { ZoomImageDialogComponent } from '@exam-shared/zoom-image-dialog/zoom-image-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,19 @@ export class EventService {
   private _movies$ = new ReplaySubject<Movie[]>(1);
   private _movies: Movie[] = [];
 
-  constructor() {
+  constructor(public _dialog: MatDialog) {
     this.restoreFromLS();
   }
 
   set movie(value: Movie) {
-    if (value && !this._movies.includes(value)) {
+    let has = false;
+    this._movies.forEach(i => {
+      if (i.imdbID === value.imdbID) {
+        has = true;
+      }
+    });
+
+    if (value && !has) {
       this._movies.push(value);
       this._movies$.next(this._movies);
       this.saveToLS();
@@ -46,5 +55,14 @@ export class EventService {
       this._movies = tmp;
       this._movies$.next(tmp);
     }
+  }
+
+  zoomImg(title: string, src: string): void {
+    this._dialog.open(ZoomImageDialogComponent, {
+      panelClass: 'image-dialog',
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      data: {title, src}
+    });
   }
 }

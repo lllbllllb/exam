@@ -26,7 +26,7 @@ export class OmdbapiService {
     }
 
     // params = params.set('apikey', '4e968e9c');
-    params = params.set('apikey', sessionStorage.getItem('apikey'));
+    params = params.set('apikey', localStorage.getItem('apikey'));
 
     return params;
   }

@@ -6,13 +6,15 @@
 
   <mat-card-content>
     <mat-nav-list *ngIf="movies">
-      <mat-list-item *ngFor="let m of movies">
-        <img matListAvatar [src]="m.Poster" (error)="imgErrorHandler($event)" alt="{{m.Title}}">
-        <a matLine routerLink="{{m.imdbID}}" title="{{m.Title}} ({{m.Type.toString()}}, {{m.Year}})">{{m.Title}}</a>
-        <p mat-line> {{m.Type.toString()}}, {{m.Year}} </p>
+      <mat-list-item *ngFor="let m of movies" title="{{m.Title}} ({{m.Type.toString()}}, {{m.Year}})">
 
-        <button mat-button color="warn" matSuffix mat-icon-button aria-label="Delete" title="Delete movie" (click)="deleteMovie(m)">
-          <mat-icon>close</mat-icon>
+        <img matListAvatar [src]="m.Poster" (error)="imgErrorHandler($event)" alt="{{m.Title}}" (click)="zoomImg(m.Title, m.Poster)" [ngClass]="{'deleted-item': m.imdbID === deletedItemImdbId}">
+        <a matLine routerLink="{{m.imdbID}}" title="{{m.Title}} ({{m.Type.toString()}}, {{m.Year}})" [ngClass]="{'deleted-item': m.imdbID === deletedItemImdbId}">{{m.Title}}</a>
+        <p mat-line [ngClass]="{'deleted-item': m.imdbID === deletedItemImdbId}"> {{m.Type.toString()}}, {{m.Year}} </p>
+
+        <button mat-button color="{{m.imdbID === deletedItemImdbId ? 'primary' : 'warn'}}" matSuffix mat-icon-button aria-label="Delete" title="Delete movie" (click)="deleteMovie(m)">
+          <mat-icon *ngIf="m.imdbID !== deletedItemImdbId">close</mat-icon>
+          <mat-icon *ngIf="m.imdbID === deletedItemImdbId">undo</mat-icon>
         </button>
       </mat-list-item>
     </mat-nav-list>

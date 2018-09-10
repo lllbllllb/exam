@@ -5,7 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {
   MatAutocompleteModule,
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatListModule,
   MatSelectModule
@@ -13,6 +13,7 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoviePreviewComponent } from '@exam-shared/movie-preview/movie-preview.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ZoomImageDialogComponent } from './zoom-image-dialog/zoom-image-dialog.component';
 
 @NgModule({
   imports: [
@@ -27,10 +28,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   declarations: [
-    MoviePreviewComponent
+    MoviePreviewComponent,
+    ZoomImageDialogComponent
   ],
   exports: [
     HttpClientModule,
@@ -44,8 +47,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MoviePreviewComponent
-  ]
+    MatDialogModule,
+    MoviePreviewComponent,
+    ZoomImageDialogComponent
+  ],
+  bootstrap: [
+    ZoomImageDialogComponent
+  ],
 
 })
 export class SharedModule {

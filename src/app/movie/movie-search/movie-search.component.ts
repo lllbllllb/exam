@@ -43,7 +43,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     this.movieCtrl = new FormControl('', [Validators.required]);
     this.types = [MovieType.movie, MovieType.series, MovieType.episode];
     this.years = MovieSearchComponent.generateYears(1900);
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/max-steel-reboot/images/7/72/No_Image_Available.gif/revision/latest?cb=20130902173013';
+    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
   }
 
   private static generateYears(from: number): number[] {
@@ -68,9 +68,9 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   private restoreApiKey(): void {
-    const apikey = sessionStorage.getItem('apikey');
+    const apikey = localStorage.getItem('apikey');
     if (apikey) {
-      this.apikeyCtrl.setValue(sessionStorage.getItem('apikey'));
+      this.apikeyCtrl.setValue(localStorage.getItem('apikey'));
     }
   }
 
@@ -91,7 +91,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   saveApikey() {
     if (this.apikeyCtrl.value && this.apikeyCtrl.value.length > 7) {
-      sessionStorage.setItem('apikey', this.apikeyCtrl.value);
+      localStorage.setItem('apikey', this.apikeyCtrl.value);
     }
   }
 
@@ -118,6 +118,10 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   gotoDetails(imdbID: string) {
     this._router.navigate(['movie/' + imdbID]);
+  }
+
+  zoomImg(title: string, src: string): void {
+    this._eventService.zoomImg(title, src);
   }
 
   acceptMovie(): void {

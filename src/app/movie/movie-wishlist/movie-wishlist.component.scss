@@ -1,1 +1,22 @@
 @import "../../../styles";
+
+a:hover {
+  text-decoration: underline;
+}
+
+.deleted-item {
+  animation: delete-item-flick 2s 1;
+}
+
+.item-control-button {
+  opacity: 100% !important;
+}
+
+@keyframes delete-item-flick {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0;
+  }
+}
