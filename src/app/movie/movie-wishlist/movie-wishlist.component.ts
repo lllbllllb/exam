@@ -55,7 +55,6 @@ export class MovieWishlistComponent implements OnInit, OnDestroy {
     timer(2000).pipe(
       takeUntil(this._stopTimer$)
     ).subscribe(() => {
-      console.log('permanentDelete: ' + movie.imdbID);
       this.permanentDelete(this.deletedItemImdbId);
     });
   }
