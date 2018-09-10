@@ -43,7 +43,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     this.movieCtrl = new FormControl('', [Validators.required]);
     this.types = [MovieType.movie, MovieType.series, MovieType.episode];
     this.years = MovieSearchComponent.generateYears(1900);
-    this.defaultImg = 'https://st3.depositphotos.com/10544526/18940/v/1600/depositphotos_189407882-stock-illustration-skull-pirate-jolly-roger-skull.jpg';
+    this.defaultImg = 'https://vignette.wikia.nocookie.net/max-steel-reboot/images/7/72/No_Image_Available.gif/revision/latest?cb=20130902173013';
   }
 
   private static generateYears(from: number): number[] {
