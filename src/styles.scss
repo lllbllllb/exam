@@ -91,6 +91,10 @@ button.mat-button {
   width: $boundary-device-width;
 }
 
+.max-width-img {
+  width: $boundary-device-width+2*$default-space;
+}
+
 .tile {
   margin: $default-space;
 }
