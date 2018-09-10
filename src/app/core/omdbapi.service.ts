@@ -10,11 +10,9 @@ import { catchError, tap } from 'rxjs/operators';
 export class OmdbapiService {
 
   private readonly serviceUri: string;
-  private readonly apikey: string; //
 
   constructor(private _http: HttpClient) {
-    this.serviceUri = 'http://www.omdbapi.com/';
-    this.apikey = '4e968e9c';
+    this.serviceUri = 'https://www.omdbapi.com/';
   }
 
   private static requestParamsConstrictor(req: RequestById | RequestBySearch): HttpParams {
