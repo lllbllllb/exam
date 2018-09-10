@@ -77,7 +77,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   private getMovies(): void {
     this.movies$ = this.searchTerms.pipe(
       takeUntil(this._onDestroy$),
-      debounceTime(1000),
+      debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: RequestBySearch) => {
         return this._omdbapiService.findBySearch$(term).pipe(
