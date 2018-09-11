@@ -17,6 +17,11 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   apikeyCtrl: FormControl;
   showApikey: boolean;
 
+  aliasCtrl: FormControl;
+  showAlias: boolean;
+
+  linkedApikeyAlias: boolean;
+
   movies$: Observable<Movie[]>;
   totalResults: string;
 
@@ -41,6 +46,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
     this.apikeyCtrl = new FormControl('', [Validators.required]);
     this.movieCtrl = new FormControl('', [Validators.required]);
+    this.aliasCtrl = new FormControl('', [Validators.required]);
     this.types = [MovieType.movie, MovieType.series, MovieType.episode];
     this.years = MovieSearchComponent.generateYears(1900);
     this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
@@ -60,6 +66,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.restoreApiKey();
     this.getMovies();
+    this.disableAliasCtrl();
   }
 
   ngOnDestroy(): void {
@@ -93,6 +100,22 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     if (this.apikeyCtrl.value && this.apikeyCtrl.value.length > 7) {
       localStorage.setItem('apikey', this.apikeyCtrl.value);
     }
+  }
+
+  linkAliasToKey(): void {
+    this.linkedApikeyAlias = !this.linkedApikeyAlias;
+
+    if (this.linkedApikeyAlias) {
+      this.apikeyCtrl.disable();
+      this.aliasCtrl.enable();
+    } else {
+      this.disableAliasCtrl();
+    }
+  }
+
+  private disableAliasCtrl(): void {
+    this.aliasCtrl.disable();
+    this.apikeyCtrl.enable();
   }
 
   search(): void {

@@ -55,14 +55,9 @@ export class MovieWishlistComponent implements OnInit, OnDestroy {
     timer(2000).pipe(
       takeUntil(this._stopTimer$)
     ).subscribe(() => {
-      this.permanentDelete(this.deletedItemImdbId);
+      this._eventService.removeMovie(this.deletedItemImdbId);
+      this.deletedItemImdbId = '';
     });
-  }
-
-  private permanentDelete(imdbId: string) {
-    this.movies = this.movies.filter(m => m.imdbID !== imdbId);
-    this._eventService.movies = this.movies;
-    this.deletedItemImdbId = '';
   }
 
   zoomImg(title: string, src: string): void {

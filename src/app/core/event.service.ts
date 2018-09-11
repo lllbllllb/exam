@@ -65,4 +65,8 @@ export class EventService {
       data: {title, src}
     });
   }
+
+  removeMovie(imdbId: string): void {
+    this.movies = this._movies.filter(m => m.imdbID !== imdbId);
+  }
 }

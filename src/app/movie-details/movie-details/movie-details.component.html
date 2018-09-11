@@ -23,5 +23,19 @@
     <div class="tile">
       <app-movie-description [movie]="movie"></app-movie-description>
     </div>
+
+    <div class="tile">
+      <mat-card *ngIf="movie.imdbID">
+        <mat-card-header>
+          <mat-card-title>Remove the movie</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="max-width">
+          <button class="full-width" color="warn" mat-button (click)="removeMvie()" title="Remove the movie">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

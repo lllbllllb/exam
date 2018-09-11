@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.mat-card>.mat-card-actions:last-child {
+.mat-card > .mat-card-actions:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
 }
@@ -26,7 +26,16 @@
 .content-col {
   flex-basis: 80%;
 }
+
 .button-col {
   flex-basis: 20%;
 }
 
+.inpt-btn-inpt {
+  width: $boundary-device-width/2-2*$default-space;
+}
+
+.link-border {
+  background: radial-gradient(farthest-side, rgba(0, 189, 86, 0.3), #FFF 60%);
+
+}
