@@ -7,8 +7,8 @@
     <form>
       <!--<div class="flex-wrapper-row" [ngClass]="{'link-border': linkedApikeyAlias}">-->
       <div class="flex-wrapper-row">
-        <mat-form-field class="inpt-btn-inpt">
-          <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB" [formControl]="apikeyCtrl"
+        <mat-form-field style="width: 100%">
+          <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB or his alias" [formControl]="apikeyCtrl"
                  (keyup)="saveApikey()">
 
           <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showApikey = !showApikey">
@@ -17,28 +17,8 @@
           </button>
 
           <mat-hint>
-            <a href="https://www.omdbapi.com/apikey.aspx" target="_blank">You can get a free API-key</a>
-          </mat-hint>
-        </mat-form-field>
-
-        <div>
-          <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="linkAliasToKey()">
-            <mat-icon *ngIf="!linkedApikeyAlias" title="Link alias to API-key">link</mat-icon>
-            <mat-icon *ngIf="linkedApikeyAlias" title="Drop link">link_off</mat-icon>
-          </button>
-        </div>
-
-        <mat-form-field class="inpt-btn-inpt">
-          <input matInput required #apikey type="{{showAlias ? 'text' : 'password'}}" placeholder="Alias" [formControl]="aliasCtrl"
-                 (keyup)="saveApikey()" [disabled]="!linkedApikeyAlias">
-
-          <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showAlias = !showAlias">
-            <mat-icon *ngIf="!showAlias">visibility</mat-icon>
-            <mat-icon *ngIf="showAlias">visibility_off</mat-icon>
-          </button>
-
-          <mat-hint>
-            Link alias to API-key
+            You can get a free API-key
+            <a href="https://www.omdbapi.com/apikey.aspx" target="_blank"> here</a>
           </mat-hint>
         </mat-form-field>
       </div>
@@ -94,7 +74,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button class="search-button" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid || aliasCtrl.invalid" (click)="acceptMovie()">
+    <button class="search-button" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid" (click)="acceptMovie()">
       <mat-icon title="Add to wishlist">playlist_add</mat-icon>
     </button>
   </mat-card-actions>
