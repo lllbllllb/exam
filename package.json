@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --aot --open",
+    "start": "node index.js",
     "build": "ng build --aot --prod --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "node index.js"
+    "postinstall": "ng build --aot --prod --build-optimizer"
   },
   "private": true,
   "dependencies": {
