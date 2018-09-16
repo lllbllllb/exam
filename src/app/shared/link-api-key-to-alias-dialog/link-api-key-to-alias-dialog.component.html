@@ -1,0 +1,41 @@
+
+  <h1 mat-dialog-title>Link API-key to alias</h1>
+
+  <form>
+    <div class="flex-wrapper-row">
+      <mat-form-field style="width: 100%">
+        <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}"
+               placeholder="API key for OMDB"
+               [formControl]="apikeyCtrl">
+
+        <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showApikey = !showApikey">
+          <mat-icon *ngIf="!showApikey">visibility</mat-icon>
+          <mat-icon *ngIf="showApikey">visibility_off</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-wrapper-row">
+      <mat-form-field style="width: 100%">
+        <input matInput required #apikey type="{{showAlias ? 'text' : 'password'}}"
+               placeholder="Alias for API-key"
+               [formControl]="aliasCtrl">
+
+        <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showAlias = !showAlias">
+          <mat-icon *ngIf="!showAlias">visibility</mat-icon>
+          <mat-icon *ngIf="showAlias">visibility_off</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <mat-dialog-actions>
+    <button style="width: 100%;" name="link api-key to alias" title="Link api-key to alias" color="primary" mat-button
+            [disabled]="aliasCtrl.invalid || apikeyCtrl.invalid"
+            (click)="saveAlias()">
+      <mat-icon title="Link">link</mat-icon>
+    </button>
+  </mat-dialog-actions>
+
+
+

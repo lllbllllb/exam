@@ -13,7 +13,7 @@ body, html {
   font-family: 'Roboto', "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   background: url('assets/textures/darkness.png');
-  animation: animate-background 30s linear infinite;
+  //animation: animate-background 60s linear infinite;
 }
 
 mat-card {
@@ -125,6 +125,24 @@ img:hover {
   }
 }
 
+.common-dialog {
+  mat-dialog-container {
+    padding: 10px;
+    margin: 0;
+    border-radius: $default-space $default-space;
+  }
+  mat-dialog-content {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+  .mat-dialog-title {
+    //text-align: center;
+    font: 400 14px/18px Roboto, "Helvetica Neue", sans-serif !important;
+    margin: 4px;
+  }
+}
+
 .rocket-flying {
   background: url('assets/textures/rocket.gif') no-repeat;
   background-size: 10%;
@@ -136,9 +154,9 @@ img:hover {
 
 @keyframes animate-background {
   from {
-    background-position: top;
+    background-position: 0 0;
   }
   to {
-    background-position: bottom;
+    background-position: -600px 600px;
   }
 }

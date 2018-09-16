@@ -1,0 +1,10 @@
+@import "../styles";
+
+.footer {
+  position: absolute;
+  top: calc(100% - 20px);
+  //left: calc(50% - 30px);
+  left: 10px;
+  color: white;
+  font-size: 12px;
+}

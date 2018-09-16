@@ -56,7 +56,7 @@ export class OmdbapiService {
       .pipe(
         tap(),
         // retry(3),
-        catchError(OmdbapiService.handleError)
+        // catchError(OmdbapiService.handleError)
       );
   }
 

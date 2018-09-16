@@ -8,7 +8,11 @@
       <!--<div class="flex-wrapper-row" [ngClass]="{'link-border': linkedApikeyAlias}">-->
       <div class="flex-wrapper-row">
         <mat-form-field style="width: calc(100% - 50px)">
-          <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB or his alias" [formControl]="apikeyCtrl">
+          <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}"
+                 placeholder="You API key for OMDB or his alias"
+                 [formControl]="apikeyCtrl"
+                 (keyup.enter)="saveApikey()"
+                 (keyup)="apiKeyInvalid = false">
 
           <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showApikey = !showApikey">
             <mat-icon *ngIf="!showApikey">visibility</mat-icon>
@@ -60,8 +64,12 @@
           <mat-icon>close</mat-icon>
         </button>
 
+        <mat-hint *ngIf="apiKeyInvalid">
+          You API-key is invalid
+        </mat-hint>
+
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayMovie.bind(this)">
-          <mat-option *ngFor="let m of movies$ | async" [value]="m" (onSelectionChange)="selectMovie()">
+          <mat-option *ngFor="let m of movies" [value]="m" (onSelectionChange)="selectMovie()">
 
             <img [src]="m.Poster" (error)="imgErrorHandler($event)" height="25" class="list-img" (click)="zoomImg(m.Title, m.Poster)"
                  alt="{{m.Title}}">
