@@ -6,6 +6,7 @@ import { OmdbapiService } from '@exam-core/omdbapi.service';
 import { debounceTime, distinctUntilChanged, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { EventService } from '@exam-core/event.service';
 import { Router } from '@angular/router';
+import { DataService } from '@exam-core/data.service';
 
 @Component({
   selector: 'app-movie-search',
@@ -42,7 +43,8 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   constructor(private _omdbapiService: OmdbapiService,
               private _eventService: EventService,
-              private _router: Router) {
+              private _router: Router,
+              private _dataService: DataService) {
 
     this.apikeyCtrl = new FormControl('', [Validators.required]);
     this.movieCtrl = new FormControl('', [Validators.required]);
@@ -73,7 +75,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   private restoreApiKey(): void {
-    const apikey = localStorage.getItem('apikey');
+    const apikey = this._eventService.getApikey();
     if (apikey) {
       this.apikeyCtrl.setValue(localStorage.getItem('apikey'));
     }
@@ -96,7 +98,8 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   saveApikey() {
     if (this.apikeyCtrl.value && this.apikeyCtrl.value.length > 7) {
-      localStorage.setItem('apikey', this.apikeyCtrl.value);
+      this._eventService.saveApikey(this.apikeyCtrl.value);
+      this._dataService.addNewKey(this.apikeyCtrl.value).subscribe();
     }
   }
 

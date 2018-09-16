@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, throwError } from 'rxjs';
 import { Movie } from '@exam-app/domain';
 import { MatDialog } from '@angular/material';
 import { ZoomImageDialogComponent } from '@exam-shared/zoom-image-dialog/zoom-image-dialog.component';
@@ -69,4 +69,13 @@ export class EventService {
   removeMovie(imdbId: string): void {
     this.movies = this._movies.filter(m => m.imdbID !== imdbId);
   }
+
+  getApikey(): string {
+    return localStorage.getItem('apikey');
+  }
+
+  saveApikey(apikey: string): void {
+    localStorage.setItem('apikey', apikey);
+  }
+
 }

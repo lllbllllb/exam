@@ -7,9 +7,8 @@
     <form>
       <!--<div class="flex-wrapper-row" [ngClass]="{'link-border': linkedApikeyAlias}">-->
       <div class="flex-wrapper-row">
-        <mat-form-field style="width: 100%">
-          <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB or his alias" [formControl]="apikeyCtrl"
-                 (keyup)="saveApikey()">
+        <mat-form-field style="width: calc(100% - 50px)">
+          <input matInput required #apikey type="{{showApikey ? 'text' : 'password'}}" placeholder="You API key for OMDB or his alias" [formControl]="apikeyCtrl">
 
           <button mat-button matSuffix color="primary" aria-label="Show/Hide" (click)="showApikey = !showApikey">
             <mat-icon *ngIf="!showApikey">visibility</mat-icon>
@@ -17,19 +16,21 @@
           </button>
 
           <mat-hint>
-            You can get a free API-key
-            <a href="https://www.omdbapi.com/apikey.aspx" target="_blank"> here</a>
+            You can
+            <a href="https://www.omdbapi.com/apikey.aspx" title="Get a free API-key" rel="noreferrer" target="_blank"> get a free API-key</a>
           </mat-hint>
         </mat-form-field>
+
+        <button mat-button color="primary" aria-label="OK" (click)="saveApikey()" style="width: 40px">OK</button>
       </div>
 
       <div class="flex-wrapper-row">
         <div>
           <mat-form-field class="half-input">
             <mat-select placeholder="Type" [(value)]="type" (selectionChange)="search()">
-              <mat-option></mat-option>
+              <mat-option aria-placeholder="type"></mat-option>
               <span *ngFor="let t of types">
-                <mat-option value="{{t}}">{{t}}</mat-option>
+                <mat-option aria-placeholder="type" value="{{t}}">{{t}}</mat-option>
               </span>
             </mat-select>
           </mat-form-field>
@@ -38,9 +39,9 @@
         <div>
           <mat-form-field class="half-input">
             <mat-select placeholder="Year" [(value)]="year" (selectionChange)="search()">
-              <mat-option></mat-option>
+              <mat-option aria-placeholder="type"></mat-option>
               <span *ngFor="let y of years">
-                <mat-option value="{{y}}">{{y}}</mat-option>
+                <mat-option aria-placeholder="type" value="{{y}}">{{y}}</mat-option>
               </span>
             </mat-select>
           </mat-form-field>
@@ -74,7 +75,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button class="search-button" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid" (click)="acceptMovie()">
+    <button class="search-button" name="add to wishlist" title="add to wishlist" color="primary" mat-button [disabled]="movieCtrl.invalid || apikeyCtrl.invalid" (click)="acceptMovie()">
       <mat-icon title="Add to wishlist">playlist_add</mat-icon>
     </button>
   </mat-card-actions>
