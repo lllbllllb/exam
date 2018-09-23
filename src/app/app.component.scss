@@ -1,10 +1,11 @@
 @import "../styles";
 
 .footer {
-  position: absolute;
+  position: fixed;
   top: calc(100% - 20px);
   //left: calc(50% - 30px);
-  left: 10px;
-  color: white;
+  left: 30px;
+  color: rgb(148, 148, 148);
   font-size: 12px;
+  //z-index: 0;
 }

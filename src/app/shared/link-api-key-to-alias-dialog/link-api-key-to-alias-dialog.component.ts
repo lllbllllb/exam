@@ -35,7 +35,7 @@ export class LinkApiKeyToAliasDialogComponent implements OnInit {
     this._dataService.getByAlias$(this.data)
       .subscribe($ => {
         this.user = $;
-        console.log('loaded: ' + JSON.stringify($));
+        // console.log('loaded: ' + JSON.stringify($));
       });
   }
 
@@ -46,7 +46,7 @@ export class LinkApiKeyToAliasDialogComponent implements OnInit {
   saveAlias(): void {
     this._dataService.patchAppUser$({id: this.user.id, alias: this.aliasCtrl.value, _links: this.user._links})
       .subscribe($ => {
-        console.log('patchrd:\n' + JSON.stringify($));
+        // console.log('patched:\n' + JSON.stringify($));
         this.onClose();
       });
   }

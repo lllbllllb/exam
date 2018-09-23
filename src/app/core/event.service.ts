@@ -3,58 +3,35 @@ import { ReplaySubject, throwError } from 'rxjs';
 import { Movie } from '@exam-app/domain';
 import { MatDialog } from '@angular/material';
 import { ZoomImageDialogComponent } from '@exam-shared/zoom-image-dialog/zoom-image-dialog.component';
+import { AppUser } from '@exam-domain/app-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private _movies$ = new ReplaySubject<Movie[]>(1);
-  private _movies: Movie[] = [];
+  private _movie$ = new ReplaySubject<Movie>(1);
+  private _newUser$ = new ReplaySubject<AppUser>(1);
 
   constructor(public _dialog: MatDialog) {
-    this.restoreFromLS();
+    // this.restoreFromLS();
   }
 
-  set movie(value: Movie) {
-    let has = false;
-    this._movies.forEach(i => {
-      if (i.imdbID === value.imdbID) {
-        has = true;
-      }
-    });
 
-    if (value && !has) {
-      this._movies.push(value);
-      this._movies$.next(this._movies);
-      this.saveToLS();
-    }
+  get movie$(): ReplaySubject<Movie> {
+    return this._movie$;
   }
 
-  get movies$(): ReplaySubject<Movie[]> {
-    return this._movies$;
+  set movie$(value: ReplaySubject<Movie>) {
+    this._movie$ = value;
   }
 
-  set movies$(value: ReplaySubject<Movie[]>) {
-    this._movies$ = value;
+  get newUser$(): ReplaySubject<AppUser> {
+    return this._newUser$;
   }
 
-  set movies(value: Movie[]) {
-    this._movies = value;
-    this._movies$.next(value);
-    this.saveToLS();
-  }
-
-  private saveToLS(): void {
-    localStorage.setItem('movies', JSON.stringify(this._movies));
-  }
-
-  private restoreFromLS(): void {
-    const tmp = JSON.parse(localStorage.getItem('movies'));
-    if (tmp && tmp.length > 0) {
-      this._movies = tmp;
-      this._movies$.next(tmp);
-    }
+  set newUser$(value: ReplaySubject<AppUser>) {
+    this._newUser$ = value;
   }
 
   zoomImg(title: string, src: string): void {
@@ -67,15 +44,7 @@ export class EventService {
   }
 
   removeMovie(imdbId: string): void {
-    this.movies = this._movies.filter(m => m.imdbID !== imdbId);
-  }
-
-  getApikey(): string {
-    return localStorage.getItem('apikey');
-  }
-
-  saveApikey(apikey: string): void {
-    localStorage.setItem('apikey', apikey);
+    // this.movies = this._movies.filter(m => m.imdbID !== imdbId);
   }
 
 }

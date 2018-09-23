@@ -12,6 +12,7 @@ import { AppUser } from '@exam-domain/app-user';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ZoomImageDialogComponent } from '@exam-shared/zoom-image-dialog/zoom-image-dialog.component';
 import { LinkApiKeyToAliasDialogComponent } from '@exam-shared/link-api-key-to-alias-dialog/link-api-key-to-alias-dialog.component';
+import { StorageService } from '@exam-core/storage.service';
 
 @Component({
   selector: 'app-movie-search',
@@ -24,12 +25,6 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   showApikey: boolean;
   apiKeyInvalid: boolean;
 
-  aliasCtrl: FormControl;
-  showAlias: boolean;
-
-  linkedApikeyAlias: boolean;
-
-  movies$: Observable<Movie[]>;
   movies: Movie[] = [];
   totalResults: string;
 
@@ -45,15 +40,13 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   private readonly defaultImg: string;
   private _onDestroy$ = new Subject<void>();
 
-  @Output() selectedMovie = new EventEmitter<Movie>();
-  @Output() acceptedMovie = new EventEmitter<boolean>();
-
   constructor(private _omdbapiService: OmdbapiService,
               private _eventService: EventService,
               private _router: Router,
               private _dataService: DataService,
               public _snackBar: MatSnackBar,
-              public _dialog: MatDialog) {
+              public _dialog: MatDialog,
+              public _storage: StorageService) {
 
     this.apikeyCtrl = new FormControl('', [Validators.required]);
     this.movieCtrl = new FormControl('', [Validators.required]);
@@ -84,10 +77,8 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   private restoreApiKey(): void {
-    const apikey = this._eventService.getApikey();
-    if (apikey) {
-      this.apikeyCtrl.setValue(localStorage.getItem('apikey'));
-    }
+    const apikey = this._storage.getUser() ? this._storage.getUser().apikey : '';
+    this.apikeyCtrl.setValue(apikey);
   }
 
   private getMovies(): void {
@@ -111,7 +102,6 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   saveApikey(): void {
     if (this.apikeyCtrl.valid) {
-
       this._dataService.getByAlias$(this.apikeyCtrl.value)
         .pipe(take(1))
         .subscribe(
@@ -119,7 +109,11 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
             this.processResponse(user);
           },
           error1 => {
-            this.addNewKey(this.apikeyCtrl.value);
+            if (error1 === 404) { // error 404 (not found) if alias don't exist
+              this.addNewKey(this.apikeyCtrl.value);
+            } else {
+              this.openSnackBar('No server connection. Please, try again later.', '', 2000);
+            }
           });
 
     }
@@ -133,7 +127,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
           this.processResponse(user);
         },
         error => {
-          this.openSnackBar('Error!', '', 2000);
+          this.openSnackBar('Something wrong :( Please, try again.', '', 2000);
         });
   }
 
@@ -145,19 +139,21 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     snackBarRef.onAction()
       .pipe(take(1))
       .subscribe(() => {
-        console.log('The snack-bar action was triggered!');
+        // console.log('The snack-bar action was triggered!');
         this.linkAliasToKey();
       });
   }
 
   private processResponse(user: AppUser): void {
+    this._eventService.newUser$.next(user);
+
     if (!user.alias || user.apikey === user.alias) {
       this.openSnackBar('Done! You can once link API-key to readable alias and use it instead of the key.', 'LINK ALIAS', 0);
     } else {
       this.openSnackBar('Done!', '', 2000);
     }
 
-    this._eventService.saveApikey(user.apikey);
+    // this._eventService.saveApikey(user.apikey);
   }
 
   linkAliasToKey(): void {
@@ -183,7 +179,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   selectMovie(): void {
-    this.selectedMovie.emit(this.movieCtrl.value);
+
   }
 
   displayMovie(m: Movie): string {
@@ -199,7 +195,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   acceptMovie(): void {
-    this._eventService.movie = this.movieCtrl.value;
+    this._eventService.movie$.next(this.movieCtrl.value);
   }
 
   imgErrorHandler(event): void {

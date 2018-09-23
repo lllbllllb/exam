@@ -3,6 +3,7 @@ import { Movie, RequestById, RequestBySearch } from '../domain';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { StorageService } from '@exam-core/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,10 @@ export class OmdbapiService {
 
   private readonly serviceUri: string;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private _storage: StorageService) {
+
     this.serviceUri = 'https://www.omdbapi.com/';
-  }
-
-  private static requestParamsConstrictor(req: RequestById | RequestBySearch): HttpParams {
-
-    let params = new HttpParams();
-
-    for (const key of Object.keys(req)) { // https://stackoverflow.com/a/45959874/6351976
-      if (req[key]) {
-        params = params.set(key, req[key]);
-      }
-    }
-
-    // params = params.set('apikey', '4e968e9c');
-    params = params.set('apikey', localStorage.getItem('apikey'));
-
-    return params;
   }
 
   /**
@@ -52,20 +39,37 @@ export class OmdbapiService {
   }
 
   findById$(req: RequestById): Observable<Movie> {
-    return this._http.get<Movie>(this.serviceUri, {params: OmdbapiService.requestParamsConstrictor(req)})
+    return this._http.get<Movie>(this.serviceUri, {params: this.requestParamsConstrictor(req)})
       .pipe(
-        tap(),
+        tap()
         // retry(3),
         // catchError(OmdbapiService.handleError)
       );
   }
 
   findBySearch$(req: RequestBySearch): Observable<any> {
-    return this._http.get<any>(this.serviceUri, {params: OmdbapiService.requestParamsConstrictor(req)})
+    return this._http.get<any>(this.serviceUri, {params: this.requestParamsConstrictor(req)})
       .pipe(
         // retry(3),
         catchError(OmdbapiService.handleError)
       );
   }
+
+  private requestParamsConstrictor(req: RequestById | RequestBySearch): HttpParams {
+
+    let params = new HttpParams();
+
+    for (const key of Object.keys(req)) { // https://stackoverflow.com/a/45959874/6351976
+      if (req[key]) {
+        params = params.set(key, req[key]);
+      }
+    }
+
+    // params = params.set('apikey', '4e968e9c');
+    params = params.set('apikey', this._storage.getUser().apikey);
+
+    return params;
+  }
+
 }
 

@@ -36,7 +36,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   removeMvie(): void {
-    this._eventService.removeMovie(this.movie.imdbID);
+    // this._eventService.removeMovie(this.movie.imdbID);
   }
 
   goBack(): void {
