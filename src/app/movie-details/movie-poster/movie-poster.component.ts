@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from '@exam-app/domain';
 import { EventService } from '@exam-core/event.service';
+import { StorageService } from '@exam-core/storage.service';
+import { ConfigService } from '@exam-core/config.service';
 
 @Component({
   selector: 'app-movie-poster',
@@ -13,8 +15,10 @@ export class MoviePosterComponent implements OnInit {
 
   defaultImg: string;
 
-  constructor(private _eventService: EventService) {
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
+  constructor(private _eventService: EventService,
+              private _configService: ConfigService) {
+
+    this.defaultImg = this._configService.getConfiguration().avatarDefaultUrl;
   }
 
   ngOnInit() {

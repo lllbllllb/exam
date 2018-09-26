@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { EventService } from '@exam-core/event.service';
+import { ConfigService } from '@exam-core/config.service';
 
 @Component({
   selector: 'app-zoom-image-dialog',
@@ -10,11 +12,11 @@ export class ZoomImageDialogComponent {
 
   private readonly defaultImg: string;
 
-  constructor(
+  constructor(private _configService: ConfigService,
     public dialogRef: MatDialogRef<ZoomImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
+    this.defaultImg = this._configService.getConfiguration().avatarDefaultUrl;
   }
 
   onClose(): void {

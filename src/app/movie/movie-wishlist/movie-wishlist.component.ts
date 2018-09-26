@@ -7,6 +7,7 @@ import { StorageService } from '@exam-core/storage.service';
 import { DataService } from '@exam-core/data.service';
 import { AppUser } from '@exam-domain/app-user';
 import { OmdbapiService } from '@exam-core/omdbapi.service';
+import { ConfigService } from '@exam-core/config.service';
 
 @Component({
   selector: 'app-movie-wishlist',
@@ -26,10 +27,11 @@ export class MovieWishlistComponent implements OnInit, OnDestroy {
   constructor(private _eventService: EventService,
               private _storage: StorageService,
               private _data: DataService,
-              private _omdbApi: OmdbapiService) {
+              private _omdbApi: OmdbapiService,
+              private _configService: ConfigService) {
 
     this.movies = [];
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
+    this.defaultImg = this._configService.getConfiguration().avatarDefaultUrl;
   }
 
   private static splitSingleToArray(single: string): string[] {

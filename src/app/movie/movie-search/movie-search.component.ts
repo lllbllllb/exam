@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ZoomImageDialogComponent } from '@exam-shared/zoom-image-dialog/zoom-image-dialog.component';
 import { LinkApiKeyToAliasDialogComponent } from '@exam-shared/link-api-key-to-alias-dialog/link-api-key-to-alias-dialog.component';
 import { StorageService } from '@exam-core/storage.service';
+import { ConfigService } from '@exam-core/config.service';
 
 @Component({
   selector: 'app-movie-search',
@@ -46,13 +47,14 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
               private _dataService: DataService,
               public _snackBar: MatSnackBar,
               public _dialog: MatDialog,
-              public _storage: StorageService) {
+              public _storage: StorageService,
+              private _configService: ConfigService) {
 
     this.apikeyCtrl = new FormControl('', [Validators.required]);
     this.movieCtrl = new FormControl('', [Validators.required]);
     this.types = [MovieType.movie, MovieType.series, MovieType.episode];
     this.years = MovieSearchComponent.generateYears(1900);
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
+    this.defaultImg = this._configService.getConfiguration().avatarDefaultUrl;
   }
 
   private static generateYears(from: number): number[] {

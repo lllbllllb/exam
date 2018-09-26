@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Movie } from '@exam-app/domain';
+import { EventService } from '@exam-core/event.service';
+import { ConfigService } from '@exam-core/config.service';
 
 @Component({
   selector: 'app-movie-preview',
@@ -12,8 +14,9 @@ export class MoviePreviewComponent implements OnInit, OnDestroy, OnChanges {
 
   defaultImg: string;
 
-  constructor() {
-    this.defaultImg = 'https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325';
+  constructor(private _configService: ConfigService) {
+
+    this.defaultImg = this._configService.getConfiguration().avatarDefaultUrl;
   }
 
   ngOnInit() {

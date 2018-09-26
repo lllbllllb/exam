@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { AppUser } from '@exam-domain/app-user';
 import { catchError, map, tap } from 'rxjs/operators';
 import { StorageService } from '@exam-core/storage.service';
+import { ConfigService } from '@exam-core/config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,10 @@ export class DataService {
   private readonly _exist: string;
 
   constructor(private _http: HttpClient,
-              private _storage: StorageService) {
+              private _storage: StorageService,
+              private _configService: ConfigService) {
 
-    this._root = 'http://localhost:8080/user';
+    this._root = this._configService.getConfiguration().webApiBaseUrl;
     this._search = '/search';
     this._findByKey = '/findByKey';
     this._exist = '/exist';
