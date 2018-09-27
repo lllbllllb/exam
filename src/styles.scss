@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,400,900');
+@import "mwl-styling";
 
-$boundary-device-width: 320px;
+$boundary-device-width: 680px;
+$main-element-width: 320px;
 $default-space: 10px;
 
 body, html {
@@ -18,7 +20,7 @@ body, html {
 }
 
 mat-card {
-  width: $boundary-device-width;
+  width: $main-element-width;
   border-radius: 10px;
   box-shadow: none;
   padding: $default-space;
@@ -29,7 +31,7 @@ mat-card-subtitle {
 }
 
 mat-card-actions {
-  //width: $boundary-device-width;
+  //width: $main-element-width;
   margin: 0;
   padding: 0 0 -20px 0;
 }
@@ -45,7 +47,7 @@ img:hover {
 }
 
 .mat-card-image {
-  //width: $boundary-device-width+2*$default-space;
+  //width: $main-element-width+2*$default-space;
   //margin: 0 -$default-space 0 -$default-space;
   width: calc(100% + 20px);
   margin: 0 -10px 0 -10px;
@@ -65,8 +67,7 @@ img:hover {
 
 .inner-flex-container {
   display: flex;
-  margin: 20px 10px;
-  //width: $boundary-device-width;
+  //width: $main-element-width;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -92,15 +93,34 @@ img:hover {
 }
 
 .max-width {
-  width: $boundary-device-width;
+  width: $main-element-width;
 }
 
 .max-width-img {
-  width: $boundary-device-width+2*$default-space;
+  width: $main-element-width+2*$default-space;
 }
 
-.tile {
-  margin: $default-space;
+/* phones (and other small devices) */
+@media (max-device-width: $boundary-device-width) {
+  .inner-flex-container {
+    margin: 0;
+  }
+
+  .tile {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+/* tablets and bigger */
+@media (min-device-width: $boundary-device-width) {
+  .inner-flex-container {
+    margin: 20px 10px;
+  }
+
+  .tile {
+    margin: $default-space;
+  }
 }
 
 .fill-remaining-space {
@@ -113,7 +133,7 @@ img:hover {
   mat-dialog-container {
     padding: 0;
     margin: 0;
-    border-radius: $default-space $default-space 2px 2px;
+    border-radius: $default-space;
   }
   .mat-dialog-content {
     padding: 0;

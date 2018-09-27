@@ -1,0 +1,11 @@
+@import '../node_modules/@angular/material/theming';
+
+@include mat-core();
+
+$mwl-styling-primary: mat-palette($mat-gray, 900, 900, 900);
+$mwl-styling-accent: mat-palette($mat-green, A700, A100, A400);
+$mwl-styling-warn: mat-palette($mat-red);
+
+$mwl-styling: mat-light-theme($mwl-styling-primary, $mwl-styling-accent, $mwl-styling-warn);
+
+@include angular-material-theme($mwl-styling);

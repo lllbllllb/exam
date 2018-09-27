@@ -1,21 +1,37 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>A wish list</mat-card-title>
-    <mat-card-subtitle>{{movies && movies.length !== 0 ? (movies.length + (movies.length === 1 ? ' movie ' : ' movies ')) : 'No saved movies yet'}}</mat-card-subtitle>
+    <mat-card-subtitle>{{movies && movies.length !== 0 ? (movies.length + (movies.length === 1 ? ' movie ' : ' movies ')) : 'No saved movies yet'}}
+    </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
     <mat-nav-list *ngIf="movies">
       <mat-list-item *ngFor="let m of movies" title="{{m.Title}} ({{m.Type}}, {{m.Year}})">
 
-        <img matListAvatar [src]="m.Poster" (error)="imgErrorHandler($event)" alt="{{m.Title}}" (click)="zoomImg(m.Title, m.Poster)" [ngClass]="{'deleted-item': m.imdbID === deletedItemImdbId}">
-        <a matLine routerLink="{{m.imdbID}}" title="{{m.Title}} ({{m.Type}}, {{m.Year}})" [ngClass]="{'deleted-item': m.imdbID === deletedItemImdbId}">{{m.Title}}</a>
-        <p mat-line [ngClass]="{'deleted-item': m.imdbID === deletedItemImdbId}"> {{m.Type}}, {{m.Year}} </p>
+        <img matListAvatar [src]="m.Poster" (error)="imgErrorHandler($event)" alt="{{m.Title}}" (click)="zoomImg(m.Title, m.Poster)"
+             [ngClass]="{'deleted-item': m === delTargetMovie}">
+        <a matLine routerLink="{{m.imdbID}}" title="{{m.Title}} ({{m.Type}}, {{m.Year}})"
+           [ngClass]="{'deleted-item': m === delTargetMovie}">{{m.Title}}</a>
+        <p mat-line [ngClass]="{'deleted-item': m === delTargetMovie}"> {{m.Type}}, {{m.Year}} </p>
 
-        <button mat-button color="{{m.imdbID === deletedItemImdbId ? 'primary' : 'warn'}}" matSuffix mat-icon-button aria-label="Delete" title="Delete movie" (click)="deleteMovie(m)">
-          <mat-icon *ngIf="m.imdbID !== deletedItemImdbId">close</mat-icon>
-          <mat-icon *ngIf="m.imdbID === deletedItemImdbId">undo</mat-icon>
-        </button>
+        <div *ngIf="m !== delTargetMovie">
+          <button mat-button color="warn" matSuffix mat-icon-button aria-label="Delete"
+                  title="Delete movie" (click)="preDeleteMovie(m)">
+            <mat-icon *ngIf="m !== delTargetMovie">close</mat-icon>
+          </button>
+        </div>
+
+        <div *ngIf="m === delTargetMovie" style="width: 200px;">
+          <button mat-button color="primary" matSuffix mat-icon-button aria-label="Delete" title="Undo" (click)="undoDeleteMovie()"
+                  style="float: left">
+            <mat-icon>undo</mat-icon>
+          </button>
+
+          <button mat-button color="accent" matSuffix mat-icon-button aria-label="Delete" title="OK" (click)="okDeleteMovie(m)" style="float: right">
+            <mat-icon>done</mat-icon>
+          </button>
+        </div>
       </mat-list-item>
     </mat-nav-list>
 

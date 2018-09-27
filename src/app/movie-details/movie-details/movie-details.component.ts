@@ -7,6 +7,8 @@ import { Movie } from '../../domain';
 import { EventService } from '@exam-core/event.service';
 import { Subject, timer } from 'rxjs';
 import { MoviesBackup } from '@exam-app/movie/movie-wishlist/movie-wishlist.component';
+import { StorageService } from '@exam-core/storage.service';
+import { DataService } from '@exam-core/data.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -16,12 +18,14 @@ import { MoviesBackup } from '@exam-app/movie/movie-wishlist/movie-wishlist.comp
 export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   movie: Movie;
+  preDelMovie: boolean;
   private _stopTimer$ = new Subject<void>();
 
   constructor(private _omdbapiService: OmdbapiService,
               private _route: ActivatedRoute,
               private _location: Location,
-              private _eventService: EventService) {
+              private _storage: StorageService,
+              private _data: DataService) {
 
   }
 
@@ -43,47 +47,27 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       .subscribe($ => this.movie = $);
   }
 
-  removeMvie(): void {
-    // this._eventService.removeMovie(this.movie.imdbID);
+  private removeMovie(): void {
+    const backup = this._storage.getUser().movies;
+    const temp = backup.replace(`${this.movie.imdbID},`, '');
+    this.saveCurrentMoviesToUserAccount(temp);
   }
 
-  // deleteMovie(movie: Movie): void {
-  //
-  //   if (movie.imdbID !== this.deletedItemImdbId) {
-  //     this.deletedItemImdbId = movie.imdbID;
-  //   } else {
-  //     this.deletedItemImdbId = '';
-  //   }
-  //
-  //   this._stopTimer$.next();
-  //
-  //   timer(2000).pipe(
-  //     takeUntil(this._stopTimer$)
-  //   ).subscribe(() => {
-  //     this.removeMovieFromArray(movie);
-  //     this.deletedItemImdbId = '';
-  //   });
-  // }
-
-  // private removeMovieAndSave(movie: Movie): void {
-  //   const backup = new MoviesBackup(this.movies);
-  //   this.movies = this.movies.filter(m => m.imdbID !== movie.imdbID);
-  //   this.saveCurrentMoviesToUserAccount(backup);
-  // }
-  //
-  // private saveCurrentMoviesToUserAccount(backup: MoviesBackup): void {
-  //   if (this._storage.isUser() && this.movies) {
-  //     const user = {'movies': MovieWishlistComponent.convertMoviesArrayToString(this.movies)};
-  //     this._data.patchAppUser$(user)
-  //       .pipe()
-  //       .subscribe(response => {
-  //           // console.log(response);
-  //         },
-  //         error1 => { // remove movie from list if error
-  //           this.movies = backup.restoreMovies;
-  //         });
-  //   }
-  // }
+  private saveCurrentMoviesToUserAccount(newMovies: string): void {
+    if (this._storage.isUser()) {
+      const user = {'movies': newMovies};
+      this._data.patchAppUser$(user)
+        .pipe()
+        .subscribe(response => {
+            // console.log(response);
+            this.goBack();
+          },
+          error1 => { // remove movie from list if error
+            this.preDelMovie = false;
+            console.log('Error while delete');
+          });
+    }
+  }
 
   goBack(): void {
     this._location.back();

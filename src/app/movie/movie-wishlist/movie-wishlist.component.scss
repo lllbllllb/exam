@@ -5,11 +5,9 @@ a:hover {
 }
 
 .deleted-item {
-  animation: delete-item-flick 2s 1;
-}
-
-.item-control-button {
-  opacity: 100% !important;
+  //animation: delete-item-flick 2s 1 linear;
+  opacity: 0.2;
+  transition: opacity 2s cubic-bezier(.52, 1, .33, 1);
 }
 
 @keyframes delete-item-flick {

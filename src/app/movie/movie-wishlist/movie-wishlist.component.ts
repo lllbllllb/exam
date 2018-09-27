@@ -22,7 +22,7 @@ export class MovieWishlistComponent implements OnInit, OnDestroy {
   private _onDestroy$ = new Subject<void>();
   private _stopTimer$ = new Subject<void>();
 
-  deletedItemImdbId: string;
+  delTargetMovie: Movie;
 
   constructor(private _eventService: EventService,
               private _storage: StorageService,
@@ -75,22 +75,16 @@ export class MovieWishlistComponent implements OnInit, OnDestroy {
     this._stopTimer$.complete();
   }
 
-  deleteMovie(movie: Movie): void {
+  preDeleteMovie(movie: Movie): void {
+    this.delTargetMovie = movie;
+  }
 
-    if (movie.imdbID !== this.deletedItemImdbId) {
-      this.deletedItemImdbId = movie.imdbID;
-    } else {
-      this.deletedItemImdbId = '';
-    }
+  okDeleteMovie(movie: Movie): void {
+    this.removeMovieFromArray(movie);
+  }
 
-    this._stopTimer$.next();
-
-    timer(2000).pipe(
-      takeUntil(this._stopTimer$)
-    ).subscribe(() => {
-      this.removeMovieFromArray(movie);
-      this.deletedItemImdbId = '';
-    });
+  undoDeleteMovie(): void {
+    this.delTargetMovie = null;
   }
 
   private loadMoviesIfUserExist(clearCurrentMovies?: boolean): void {

@@ -78,8 +78,6 @@ export class DataService {
   }
 
   patchAppUser$(patch: AppUser): Observable<AppUser> {
-    console.log('patch:\n' + JSON.stringify(patch));
-
     const patchHref = this._storage.getUser()._links.self.href;
 
     return this._http.patch<AppUser>(patchHref, DataService.patchParams(patch))

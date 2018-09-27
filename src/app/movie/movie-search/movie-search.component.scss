@@ -1,7 +1,7 @@
 @import "../../../styles";
 
 .half-input {
-  width: $boundary-device-width/2-$default-space;
+  width: $main-element-width/2-$default-space;
 }
 
 .search-button {
@@ -32,7 +32,7 @@
 }
 
 .inpt-btn-inpt {
-  width: $boundary-device-width/2-2*$default-space;
+  width: $main-element-width/2-2*$default-space;
 }
 
 .link-border {

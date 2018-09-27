@@ -1,2 +1,10 @@
 @import "../../../styles";
 
+.twin-container {
+  display: flex;
+  align-content: space-between;
+}
+
+.twin-element {
+  width: 50%;
+}

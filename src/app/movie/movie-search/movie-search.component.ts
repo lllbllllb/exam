@@ -79,8 +79,10 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   private restoreApiKey(): void {
-    const apikey = this._storage.getUser() ? this._storage.getUser().apikey : '';
-    this.apikeyCtrl.setValue(apikey);
+    if (this._storage.isUser()) {
+      const alias = this._storage.getUser().alias ? this._storage.getUser().alias : this._storage.getUser().apikey;
+      this.apikeyCtrl.setValue(alias);
+    }
   }
 
   private getMovies(): void {
