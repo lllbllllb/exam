@@ -29,7 +29,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/sitemap.xml",
+              "src/robots.txt"
             ],
             "styles": [
               {
@@ -94,7 +96,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/sitemap.xml",
+              "src/robots.txt"
             ]
           }
         },
