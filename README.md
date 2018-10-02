@@ -1,6 +1,23 @@
-# Exam
+# About Exam
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+Full example for Progressive Web Application based on Angular, with [simple backend on Spring Data-REST](https://github.com/lllbllllb/examback).
+
+**Exam** has reached higher (wo clean cache) levels in google chrome audit (_v. 69.0.3497.100_), like 
+
+`Progressive Web App - 100%`
+
+`Perfomance - 100%`
+
+`SEO - 100%` (even higher than google.com ;) )
+
+`Best Practies - 93%` (because third-party api doesn't use http/2)
+
+`Accessibility - 83%`
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0 and improve manually :).
+
+#Demo
+[View demo  here](https://movie-wishlist-exam.herokuapp.com).
 
 ## Development server
 
