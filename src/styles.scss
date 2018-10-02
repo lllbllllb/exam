@@ -18,8 +18,8 @@ body, html {
   -webkit-font-smoothing: antialiased;
   background: url('assets/textures/city-bg.png') repeat-x 0 100% fixed,
   url('assets/textures/cloud-bg.png') no-repeat fixed,
-  url('assets/textures/cloud-bg.png') no-repeat fixed;
-  background: linear-gradient(to top, #5080b1, #004e8c) fixed;
+  url('assets/textures/cloud-bg.png') no-repeat fixed,
+  linear-gradient(to top, #5080b1, #004e8c) fixed;
   animation: animate-city 30s linear infinite;
 }
 
