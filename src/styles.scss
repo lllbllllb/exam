@@ -16,9 +16,6 @@ body, html {
   height: 100%;
   font-family: 'Roboto', "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
-  //background: url('assets/textures/darkness.png');
-  //animation: animate-background 60s linear infinite;
-  //z-index: -10;
   background: url('assets/textures/city-bg.png') repeat-x 0 100% fixed,
   url('assets/textures/cloud-bg.png') no-repeat fixed,
   url('assets/textures/cloud-bg.png') no-repeat fixed,
@@ -30,17 +27,6 @@ body, html {
   from { background-position: -1000px 100%, 120% 30%, 120% 15%, 0 0;}
   to { background-position: 0 100%, -200% 10%, -50% 15%, 0 0; }
 }
-
-
-@keyframes animate-background {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -600px 600px;
-  }
-}
-
 
 mat-card {
   width: $main-element-width;
