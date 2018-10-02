@@ -16,10 +16,31 @@ body, html {
   height: 100%;
   font-family: 'Roboto', "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: url('assets/textures/darkness.png');
+  //background: url('assets/textures/darkness.png');
   //animation: animate-background 60s linear infinite;
   //z-index: -10;
+  background: url('assets/textures/city-bg.png') repeat-x 0 100% fixed,
+  url('assets/textures/cloud-bg.png') no-repeat fixed,
+  url('assets/textures/cloud-bg.png') no-repeat fixed,
+  linear-gradient(to top, #5080b1, #004e8c) fixed;
+  animation: animate-city 30s linear infinite;
 }
+
+@keyframes animate-city {
+  from { background-position: -1000px 100%, 120% 30%, 120% 15%, 0 0;}
+  to { background-position: 0 100%, -200% 10%, -50% 15%, 0 0; }
+}
+
+
+@keyframes animate-background {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -600px 600px;
+  }
+}
+
 
 mat-card {
   width: $main-element-width;
@@ -102,29 +123,6 @@ img:hover {
   width: $main-element-width+2*$default-space;
 }
 
-/* phones (and other small devices) */
-@media (max-device-width: $boundary-device-width) {
-  .inner-flex-container {
-    margin: 0;
-  }
-
-  .tile {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-}
-
-/* tablets and bigger */
-@media (min-device-width: $boundary-device-width) {
-  .inner-flex-container {
-    margin: 20px 10px;
-  }
-
-  .tile {
-    margin: $default-space;
-  }
-}
-
 .fill-remaining-space {
   flex: 1 1 auto;
 }
@@ -175,11 +173,26 @@ img:hover {
   left: 50%;
 }
 
-@keyframes animate-background {
-  from {
-    background-position: 0 0;
+
+/* phones (and other small devices) */
+@media (max-device-width: $boundary-device-width) {
+  .inner-flex-container {
+    margin: 0;
   }
-  to {
-    background-position: -600px 600px;
+
+  .tile {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+/* tablets and bigger */
+@media (min-device-width: $boundary-device-width) {
+  .inner-flex-container {
+    margin: 20px 10px;
+  }
+
+  .tile {
+    margin: $default-space;
   }
 }

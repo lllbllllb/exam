@@ -1,15 +1,70 @@
 @import "../styles";
 
+img {
+  cursor: pointer !important;
+}
+
 .footer {
   position: fixed;
-  top: calc(100% - 20px);
-  //left: calc(50% - 30px);
+  bottom: 20px;
   left: 30px;
   color: rgb(148, 148, 148);
   font-size: 12px;
-  //z-index: 0;
 }
 
-a {
+.social-link {
   color: rgb(148, 148, 148);
+  cursor: pointer;
+  text-decoration: underline;
 }
+
+.social-panel {
+  display: flex;
+  width: 224px; background-color: rgba(148, 148, 148, 0.9);
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+  border-radius: $default-space;
+}
+
+/* phones (and other small devices) */
+@media (max-device-width: $boundary-device-width) {
+  .social-panel {
+    width: 224px; background-color: rgba(148, 148, 148, 0.9);
+  }
+  .close-background {
+    background-color: rgba(256, 256, 256, 0.2);
+  }
+}
+
+
+.close-background {
+  border-radius: 0 $default-space $default-space 0;
+  height: 44px;
+}
+
+/* tablets and bigger */
+@media (min-device-width: $boundary-device-width) {
+  .social-panel {
+    width: 224px; background-color: rgba(148, 148, 148, 0.1);
+  }
+  .close-background {
+    background-color: rgba(148, 148, 148, 0.2);
+  }
+}
+
+.soc-icon {
+  width: 32px;
+  height: 32px;
+  margin: 6px;
+  cursor: pointer;
+}
+
+.github {
+  border-radius: 18px;
+  background-color: rgba(256, 256, 256, 0.6);
+}
+
+
+
