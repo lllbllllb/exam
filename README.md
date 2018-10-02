@@ -12,11 +12,11 @@ Full example for Progressive Web Application based on Angular, with [simple back
 
 `Best Practies - 93%` (because third-party api doesn't use http/2)
 
-`Accessibility - 83%`
+`Accessibility - 84%`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0 and improve manually :).
 
-#Demo
+##Demo
 [View demo  here](https://movie-wishlist-exam.herokuapp.com).
 
 ## Development server
