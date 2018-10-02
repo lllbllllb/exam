@@ -23,11 +23,6 @@ body, html {
   animation: animate-city 30s linear infinite;
 }
 
-@keyframes animate-city {
-  from { background-position: -1000px 100%, 120% 30%, 120% 15%, 0 0;}
-  to { background-position: 0 100%, -200% 10%, -50% 15%, 0 0; }
-}
-
 mat-card {
   width: $main-element-width;
   border-radius: 10px;
@@ -180,5 +175,10 @@ img:hover {
 
   .tile {
     margin: $default-space;
+  }
+
+  @keyframes animate-city {
+    from { background-position: -1000px 100%, 120% 30%, 120% 15%, 0 0;}
+    to { background-position: 0 100%, -200% 10%, -50% 15%, 0 0; }
   }
 }
